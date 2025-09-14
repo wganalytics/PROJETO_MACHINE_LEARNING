@@ -1,0 +1,14 @@
+RESULTADOS DO PROJETO DE MACHINE LEARNING
+==================================================
+
+Melhor modelo: SVM
+Acurácia: 0.9825
+Precisão: 0.9861
+Recall: 0.9861
+F1-Score: 0.9861
+
+Todos os resultados:
+       Modelo  CV_Mean   CV_Std  Test_Accuracy  Test_Precision  Test_Recall  Test_F1
+          SVM 0.978022 0.018388       0.982456        0.986111     0.986111 0.986111
+Random Forest 0.947253 0.016150       0.921053        0.970149     0.902778 0.935252
+          KNN 0.969231 0.012815       0.973684        0.972603     0.986111 0.979310
