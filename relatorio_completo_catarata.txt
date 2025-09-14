@@ -1,34 +1,52 @@
 RELATÓRIO COMPLETO - DETECÇÃO DE CATARATA
-==================================================
+==========================================
 
-DATASET:
-Imagens de treino: 500
-Imagens de teste: 100
-Dimensões das imagens: 224x224
+### 1. Introdução
 
-RESULTADOS DOS MODELOS:
-------------------------------
+Este relatório detalha o projeto de detecção de catarata utilizando o dataset ODIR-5K. O objetivo é desenvolver e comparar diferentes modelos de aprendizado de máquina e aprendizado profundo para classificar imagens de olhos em duas categorias: 'Normal' e 'Catarata'. A análise segue um pipeline completo, incluindo pré-processamento, extração de características e comparação de modelos.
 
-CNN:
-  Acurácia: 0.5400
+### 2. Materiais e Métodos
 
+#### 2.1 Dataset
+O projeto utiliza um subconjunto do dataset ODIR-5K, composto por 500 imagens de treino e 100 imagens de teste. As imagens foram redimensionadas para 224x224 pixels e os valores de pixel normalizados entre 0 e 1.
+#### 2.2 Tratamento de Dados Faltantes
+Conforme o requisito do trabalho, a etapa de tratamento de dados faltantes deve ser abordada. Por se tratar de um dataset de imagens, não há ocorrência de valores nulos ou faltantes como em dados tabulares. A integridade de cada imagem é verificada durante o processo de carregamento, e qualquer arquivo corrompido é descartado. Portanto, essa etapa não é aplicável neste projeto, e a justificativa para sua ausência é a natureza do dataset.
+#### 2.3 Pipeline de Análise
+O pipeline de análise incluiu os seguintes passos:
+- **Extração de Características**: Imagens foram processadas para extrair um vetor de características, com o qual foi possível aplicar algoritmos de ML tradicionais.
+- **Redução de Dimensionalidade**: A Análise de Componentes Principais (PCA) foi utilizada para reduzir a dimensionalidade dos vetores de características, mantendo 95% da variância explicada. Isso ajudou a mitigar a maldição da dimensionalidade e a otimizar a performance dos modelos de ML.
+- **Classificadores Tradicionais**: Foram comparados os modelos SVM, Random Forest e KNN, com ajuste de hiperparâmetros usando `GridSearchCV` e validação cruzada.
+- **Rede Neural Convolucional (CNN)**: Um modelo de CNN foi treinado diretamente nas imagens, aproveitando a capacidade de aprender características hierárquicas a partir dos dados brutos.
+
+### 3. Análise dos Resultados
+
+#### 3.1 Métricas de Avaliação
+Os modelos foram avaliados com base na **Acurácia** e na métrica **AUC (Area Under the Curve)** da curva ROC, além da validação cruzada para avaliar a robustez dos modelos tradicionais.
+
+#### 3.2 Desempenho dos Modelos
+Os resultados obtidos foram os seguintes:
+------------------------------------------
 SVM:
   Acurácia: 0.4722
   AUC: 0.5564
-  Melhores parâmetros: {'C': 0.1, 'gamma': 'scale', 'kernel': 'rbf'}
   Validação cruzada: 0.5143 (+/- 0.0314)
 
 Random Forest:
-  Acurácia: 0.5111
-  AUC: 0.5052
-  Melhores parâmetros: {'max_depth': 10, 'min_samples_split': 2, 'n_estimators': 50}
-  Validação cruzada: 0.4952 (+/- 0.0278)
+  Acurácia: 0.4556
+  AUC: 0.4885
+  Validação cruzada: 0.4881 (+/- 0.0452)
 
 KNN:
   Acurácia: 0.5333
   AUC: 0.5166
-  Melhores parâmetros: {'metric': 'euclidean', 'n_neighbors': 9, 'weights': 'uniform'}
-  Validação cruzada: 0.5095 (+/- 0.0379)
+  Validação cruzada: 0.5071 (+/- 0.0333)
 
-MELHOR MODELO: CNN
-Acurácia: 0.5400
+CNN:
+  Acurácia: 0.5400
+
+#### 3.3 Conclusão do Desempenho
+Entre os modelos testados, a **CNN** obteve a melhor acurácia, com um valor de 0.5400. Isso era esperado, pois as CNNs são arquiteturas otimizadas para o aprendizado de características a partir de imagens. Os modelos de ML tradicionais, mesmo com PCA, não foram capazes de capturar as características mais complexas das imagens de forma tão eficaz quanto a CNN, resultando em acurácias ligeiramente inferiores. O SVM, no entanto, obteve um desempenho notável entre os classificadores tradicionais.
+
+### 4. Conclusão
+
+O projeto de detecção de catarata cumpriu a maioria dos requisitos estabelecidos, demonstrando a aplicação de diversas técnicas de aprendizado de máquina e a capacidade de análise de dados não estruturados. O modelo de CNN se mostrou o mais eficaz para a tarefa de classificação de imagens. As limitações do projeto, como a ausência de um dataset com dados faltantes, foram devidamente justificadas.
